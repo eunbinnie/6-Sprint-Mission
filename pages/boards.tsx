@@ -60,33 +60,33 @@ const Boards = () => {
     return;
   };
 
-  const getArticles = async () => {
-    try {
-      const articles: ArticleArrayType = await getArticlesApi(option);
-      const { list }: { list: ArticleArrayType["list"] } = articles;
-      setArticles(list);
-    } catch (error) {
-      console.error("Failed to fetch articles:", error);
-    }
-  };
-
-  const getBestArticles = async () => {
-    try {
-      const bestArticles: ArticleArrayType = await getBestArticlesApi(
-        bestOption
-      );
-      const { list }: { list: ArticleArrayType["list"] } = bestArticles;
-      setBestArticles(list);
-    } catch (error) {
-      console.error("Failed tooo fetch best articles: ", error);
-    }
-  };
-
   useEffect(() => {
+    const getBestArticles = async () => {
+      try {
+        const bestArticles: ArticleArrayType = await getBestArticlesApi(
+          bestOption
+        );
+        const { list }: { list: ArticleArrayType["list"] } = bestArticles;
+        setBestArticles(list);
+      } catch (error) {
+        console.error("Failed tooo fetch best articles: ", error);
+      }
+    };
+
     getBestArticles();
   }, []);
 
   useEffect(() => {
+    const getArticles = async () => {
+      try {
+        const articles: ArticleArrayType = await getArticlesApi(option);
+        const { list }: { list: ArticleArrayType["list"] } = articles;
+        setArticles(list);
+      } catch (error) {
+        console.error("Failed to fetch articles:", error);
+      }
+    };
+
     getArticles();
   }, [option]);
 
