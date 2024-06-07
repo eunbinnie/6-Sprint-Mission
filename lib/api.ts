@@ -1,4 +1,12 @@
-import { IApiOption, IBestApiOption } from "@/pages/boards";
+export interface IApiOption {
+  orderBy: string;
+  keyword: string;
+}
+
+export interface IBestApiOption {
+  orderBy: string;
+  pageSize: number;
+}
 
 const convertToRecord = (
   option: IApiOption | IBestApiOption
@@ -10,7 +18,16 @@ const convertToRecord = (
   return record;
 };
 
-export const getArticlesApi = async (option: IApiOption | IBestApiOption) => {
+export const getArticlesApi = async (option: IApiOption) => {
+  const params = new URLSearchParams(convertToRecord(option)).toString();
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/articles?${params}`
+  );
+  const body = await response.json();
+  return body;
+};
+
+export const getBestArticlesApi = async (option: IBestApiOption) => {
   const params = new URLSearchParams(convertToRecord(option)).toString();
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/articles?${params}`
