@@ -1,7 +1,5 @@
 import { IApiOption, IBestApiOption } from "@/pages/boards";
 
-const API_URL = "https://panda-market-api.vercel.app";
-
 const convertToRecord = (
   option: IApiOption | IBestApiOption
 ): Record<string, string> => {
@@ -14,7 +12,9 @@ const convertToRecord = (
 
 export const getArticlesApi = async (option: IApiOption | IBestApiOption) => {
   const params = new URLSearchParams(convertToRecord(option)).toString();
-  const response = await fetch(`${API_URL}/articles?${params}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/articles?${params}`
+  );
   const body = await response.json();
   return body;
 };
