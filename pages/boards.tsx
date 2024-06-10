@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getArticlesApi } from "@/lib/api";
+import {
+  IApiOption,
+  IBestApiOption,
+  getArticlesApi,
+  getBestArticlesApi,
+} from "@/lib/api";
 import BoardList from "@/src/components/BoardList";
 import Title from "@/src/components/Title";
 import LinkButton from "@/src/components/LinkButton";
@@ -23,16 +28,6 @@ export interface ArticleType {
 export interface ArticleArrayType {
   list: ArticleType[];
   totalCount: number;
-}
-
-export interface IApiOption {
-  orderBy: string;
-  keyword: string;
-}
-
-export interface IBestApiOption {
-  orderBy: string;
-  pageSize: number;
 }
 
 const Boards = () => {
@@ -65,31 +60,33 @@ const Boards = () => {
     return;
   };
 
-  const getArticles = async () => {
-    try {
-      const articles: ArticleArrayType = await getArticlesApi(option);
-      const { list }: { list: ArticleArrayType["list"] } = articles;
-      setArticles(list);
-    } catch (error) {
-      console.error("Failed to fetch articles:", error);
-    }
-  };
-
-  const getBestArticles = async () => {
-    try {
-      const bestArticles: ArticleArrayType = await getArticlesApi(bestOption);
-      const { list }: { list: ArticleArrayType["list"] } = bestArticles;
-      setBestArticles(list);
-    } catch (error) {
-      console.error("Failed tooo fetch best articles: ", error);
-    }
-  };
-
   useEffect(() => {
+    const getBestArticles = async () => {
+      try {
+        const bestArticles: ArticleArrayType = await getBestArticlesApi(
+          bestOption
+        );
+        const { list }: { list: ArticleArrayType["list"] } = bestArticles;
+        setBestArticles(list);
+      } catch (error) {
+        console.error("Failed tooo fetch best articles: ", error);
+      }
+    };
+
     getBestArticles();
   }, []);
 
   useEffect(() => {
+    const getArticles = async () => {
+      try {
+        const articles: ArticleArrayType = await getArticlesApi(option);
+        const { list }: { list: ArticleArrayType["list"] } = articles;
+        setArticles(list);
+      } catch (error) {
+        console.error("Failed to fetch articles:", error);
+      }
+    };
+
     getArticles();
   }, [option]);
 

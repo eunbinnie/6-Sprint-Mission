@@ -13,7 +13,7 @@ const BestBoardList = ({ list }: BoardListProps) => {
   return (
     <li className="flex-1 grid gap-4 pb-4 px-6 bg-gray-50 rounded-[8px]">
       <Image src={bestBadge} alt="Best" width={102} height={30} />
-      <div className="flex justify-between gap-2 h-[72px]">
+      <div className="relative flex justify-between gap-2">
         <BoardTitleImage title={title} image={image} />
       </div>
       <div className="flex justify-between items-center mt-[2px]">

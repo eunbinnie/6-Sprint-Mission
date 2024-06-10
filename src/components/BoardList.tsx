@@ -16,7 +16,7 @@ const BoardList = (props: BoardListProps) => {
 
   return (
     <>
-      <div className="flex justify-between gap-2 min-h-12">
+      <div className="relative flex justify-between gap-2 min-h-12">
         <BoardTitleImage title={title} image={image} />
       </div>
       <div className="flex justify-between gap-2">
