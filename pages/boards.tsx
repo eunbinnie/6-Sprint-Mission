@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  IApiOption,
-  IBestApiOption,
-  getArticlesApi,
-  getBestArticlesApi,
-} from "@/lib/api";
+import { GetArticlesQuery, getArticlesApi } from "@/lib/api";
 import BoardList from "@/src/components/BoardList";
 import Title from "@/src/components/Title";
 import LinkButton from "@/src/components/LinkButton";
@@ -37,11 +32,11 @@ const Boards = () => {
     []
   );
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [bestOption, setBestOption] = useState<IBestApiOption>({
+  const [bestOption, setBestOption] = useState<GetArticlesQuery>({
     orderBy: "like",
     pageSize: 3,
   });
-  const [option, setOption] = useState<IApiOption>({
+  const [option, setOption] = useState<GetArticlesQuery>({
     orderBy: "recent",
     keyword: "",
   });
@@ -63,9 +58,7 @@ const Boards = () => {
   useEffect(() => {
     const getBestArticles = async () => {
       try {
-        const bestArticles: ArticleArrayType = await getBestArticlesApi(
-          bestOption
-        );
+        const bestArticles: ArticleArrayType = await getArticlesApi(bestOption);
         const { list }: { list: ArticleArrayType["list"] } = bestArticles;
         setBestArticles(list);
       } catch (error) {
