@@ -1,7 +1,35 @@
 import Link from "next/link";
-import pandaLogo from "@/src/assets/icons/panda_face.svg";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import LinkButton from "./LinkButton";
+import { ChildrenProps } from "@/types/common.interface";
+import pandaLogo from "@/src/assets/icons/panda_face.svg";
+
+interface LinkType extends ChildrenProps {
+  href: string;
+  activePaths?: string[];
+}
+
+/**
+ * 커스텀 링크 함수 (링크 active 체크)
+ * @param activePaths 활성화되어야하는 경로 배열
+ * @returns Link 태그 반환
+ */
+const CustomLink = ({ href, activePaths, children }: LinkType) => {
+  const router = useRouter();
+  const isActive = activePaths?.includes(router.pathname);
+
+  return (
+    <Link
+      href={href}
+      className={`font-bold text-lg ${
+        isActive ? "text-blue" : "text-gray-600"
+      } `}
+    >
+      {children}
+    </Link>
+  );
+};
 
 const Header = () => {
   return (
@@ -18,14 +46,12 @@ const Header = () => {
           </Link>
           <ul className="flex justify-center items-center ml-4 sm:ml-5 md:ml-8 gap-2">
             <li className="md:min-w-[110px] text-center">
-              <Link href="/boards" className="text-gray-600 font-bold text-lg">
+              <CustomLink href="/boards" activePaths={["/boards"]}>
                 자유게시판
-              </Link>
+              </CustomLink>
             </li>
             <li className="md:min-w-[110px] text-center">
-              <Link href="/items" className="text-gray-600 font-bold text-lg">
-                중고마켓
-              </Link>
+              <CustomLink href="/items">중고마켓</CustomLink>
             </li>
           </ul>
         </div>
