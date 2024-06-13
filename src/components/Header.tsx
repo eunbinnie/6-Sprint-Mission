@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import LinkButton from "./LinkButton";
-import { ChildrenProps } from "@/types/common.interface";
+import { ChildrenProps } from "@/src/types/common.interface";
 import pandaLogo from "@/src/assets/icons/panda_face.svg";
 
 interface LinkType extends ChildrenProps {

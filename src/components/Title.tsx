@@ -1,5 +1,5 @@
 import React from "react";
-import type { ChildrenProps } from "@/types/common.interface";
+import type { ChildrenProps } from "@/src/types/common.interface";
 
 const Title = ({ children }: ChildrenProps) => {
   return (

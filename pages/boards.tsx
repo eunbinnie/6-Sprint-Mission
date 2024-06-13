@@ -5,6 +5,8 @@ import Title from "@/src/components/Title";
 import LinkButton from "@/src/components/LinkButton";
 import SearchForm from "@/src/components/SearchForm";
 import BestBoardList from "@/src/components/Boards/BestBoardList";
+import Dropdown from "@/src/components/Dropdown";
+import { orderByList } from "@/src/constants";
 
 export interface ArticleType {
   content: string;
@@ -107,6 +109,7 @@ const Boards = () => {
             onChange={onChangeSearchInput}
             onSubmit={onSubmitSearch}
           />
+          <Dropdown list={orderByList} setOption={setOption} />
         </div>
         <ul>
           {articles?.map((article) => {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import searchIcon from "@/src/assets/icons/search_icon.svg";
-import { InputPropertyType } from "@/types/common.interface";
+import { InputPropertyType } from "@/src/types/common.interface";
 import Input from "./Input";
 
 interface SearchFormProps extends InputPropertyType {
