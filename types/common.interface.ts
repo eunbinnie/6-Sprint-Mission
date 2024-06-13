@@ -4,3 +4,10 @@ import React from "react";
 export interface ChildrenProps {
   children: React.ReactNode;
 }
+
+// input 타입
+export interface InputPropertyType {
+  value: string;
+  placeholder: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+}

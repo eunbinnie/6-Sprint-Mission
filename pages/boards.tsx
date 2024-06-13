@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { GetArticlesQuery, getArticlesApi } from "@/lib/api";
-import BoardList from "@/src/components/BoardList";
+import BoardList from "@/src/components/Boards/BoardList";
 import Title from "@/src/components/Title";
 import LinkButton from "@/src/components/LinkButton";
 import SearchForm from "@/src/components/SearchForm";
-import BestBoardList from "@/src/components/BestBoardList";
+import BestBoardList from "@/src/components/Boards/BestBoardList";
 
 export interface ArticleType {
   content: string;

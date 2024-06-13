@@ -1,5 +1,5 @@
 import React from "react";
-import Profile from "./Profile";
+import Profile from "../Profile";
 import Image from "next/image";
 import likeImg from "@/src/assets/icons/favorite_icon.svg";
 import { ArticleType } from "@/pages/boards";
