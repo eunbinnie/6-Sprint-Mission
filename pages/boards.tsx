@@ -7,6 +7,7 @@ import SearchForm from "@/src/components/SearchForm";
 import BestBoardList from "@/src/components/Boards/BestBoardList";
 import Dropdown from "@/src/components/Dropdown";
 import { orderByList } from "@/src/constants";
+import useWindowSize from "@/src/hooks/useWindowSize";
 
 export interface ArticleType {
   content: string;
@@ -27,7 +28,15 @@ export interface ArticleArrayType {
   totalCount: number;
 }
 
+const setBestPageSize = (category: string) => {
+  if (category === "S") return 1;
+  else if (category === "M") return 2;
+  else return 3;
+};
+
 const Boards = () => {
+  const category = useWindowSize();
+
   // state
   const [articles, setArticles] = useState<ArticleArrayType["list"]>([]);
   const [bestArticles, setBestArticles] = useState<ArticleArrayType["list"]>(
@@ -36,7 +45,7 @@ const Boards = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [bestOption, setBestOption] = useState<GetArticlesQuery>({
     orderBy: "like",
-    pageSize: 3,
+    pageSize: 0,
   });
   const [option, setOption] = useState<GetArticlesQuery>({
     orderBy: "recent",
@@ -58,6 +67,13 @@ const Boards = () => {
   };
 
   useEffect(() => {
+    setBestOption((prev) => ({
+      ...prev,
+      pageSize: setBestPageSize(category),
+    }));
+  }, [category, bestOption.pageSize]);
+
+  useEffect(() => {
     const getBestArticles = async () => {
       try {
         const res = await instance.get("/articles", {
@@ -72,7 +88,7 @@ const Boards = () => {
     };
 
     getBestArticles();
-  }, []);
+  }, [bestOption]);
 
   useEffect(() => {
     const getArticles = async () => {
