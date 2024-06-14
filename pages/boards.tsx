@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import instance, { GetArticlesQuery } from "@/lib/axios";
+import axios, { GetArticlesQuery } from "@/lib/axios";
 import BoardList from "@/src/components/Boards/BoardList";
 import Title from "@/src/components/Title";
 import LinkButton from "@/src/components/LinkButton";
@@ -34,18 +34,18 @@ const setBestPageSize = (category: string) => {
   else return 3;
 };
 
-const Boards = () => {
+const Boards = ({ initialBestArticles, initialArticles }: any) => {
   const category = useWindowSize();
 
   // state
-  const [articles, setArticles] = useState<ArticleArrayType["list"]>([]);
-  const [bestArticles, setBestArticles] = useState<ArticleArrayType["list"]>(
-    []
-  );
+  const [articles, setArticles] =
+    useState<ArticleArrayType["list"]>(initialArticles);
+  const [bestArticles, setBestArticles] =
+    useState<ArticleArrayType["list"]>(initialBestArticles);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [bestOption, setBestOption] = useState<GetArticlesQuery>({
     orderBy: "like",
-    pageSize: 0,
+    pageSize: setBestPageSize(category),
   });
   const [option, setOption] = useState<GetArticlesQuery>({
     orderBy: "recent",
@@ -76,7 +76,7 @@ const Boards = () => {
   useEffect(() => {
     const getBestArticles = async () => {
       try {
-        const res = await instance.get("/articles", {
+        const res = await axios.get("/articles", {
           params: bestOption,
         });
         const bestArticles = res.data;
@@ -93,7 +93,7 @@ const Boards = () => {
   useEffect(() => {
     const getArticles = async () => {
       try {
-        const res = await instance.get("/articles", {
+        const res = await axios.get("/articles", {
           params: option,
         });
         const articles = res.data;
@@ -114,7 +114,7 @@ const Boards = () => {
         <div className="flex gap-6">
           <ul className="flex w-full gap-6">
             {bestArticles?.map((best) => {
-              return <BestBoardList key={best.id} list={best} />;
+              return <BestBoardList id={best.id} key={best.id} list={best} />;
             })}
           </ul>
         </div>
@@ -123,7 +123,7 @@ const Boards = () => {
       <section className="grid gap-4 md:gap-6">
         <div className="flex items-center justify-between">
           <Title>게시글</Title>
-          <LinkButton href={"/"}>글쓰기</LinkButton>
+          <LinkButton href={"/addboard"}>글쓰기</LinkButton>
         </div>
         <div className="flex items-center gap-2">
           <SearchForm
@@ -140,7 +140,7 @@ const Boards = () => {
                 className="grid gap-4 py-6 border-b border-b-gray-200"
                 key={article.id}
               >
-                <BoardList list={article} />
+                <BoardList id={article.id} list={article} />
               </li>
             );
           })}
@@ -148,6 +148,43 @@ const Boards = () => {
       </section>
     </main>
   );
+};
+
+export const getServerSideProps = async () => {
+  const bestOption: GetArticlesQuery = {
+    orderBy: "like",
+    pageSize: 0,
+  };
+
+  const option: GetArticlesQuery = {
+    orderBy: "recent",
+    keyword: "",
+  };
+
+  try {
+    const [bestArticlesRes, articlesRes] = await Promise.all([
+      axios.get("/articles", { params: bestOption }),
+      axios.get("/articles", { params: option }),
+    ]);
+
+    const initialBestArticles = bestArticlesRes.data.list;
+    const initialArticles = articlesRes.data.list;
+
+    return {
+      props: {
+        initialBestArticles,
+        initialArticles,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch articles:", error);
+    return {
+      props: {
+        initialBestArticles: [],
+        initialArticles: [],
+      },
+    };
+  }
 };
 
 export default Boards;

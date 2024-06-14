@@ -4,19 +4,27 @@ import Image from "next/image";
 import likeImg from "@/src/assets/icons/favorite_icon.svg";
 import { ArticleType } from "@/pages/boards";
 import BoardTitleImage from "./BoardTitleImage";
+import { useRouter } from "next/router";
 
 export interface BoardListProps {
+  id?: number;
   list: ArticleType;
 }
 
-const BoardList = (props: BoardListProps) => {
-  const { title, createdAt, image, likeCount, writer } = props.list;
+const BoardList = ({ id, list }: BoardListProps) => {
+  const router = useRouter();
+  const { title, createdAt, image, likeCount, writer } = list;
   const { nickname } = writer;
   const customDate = new Date(createdAt).toLocaleDateString();
 
   return (
     <>
-      <div className="relative flex justify-between gap-2 min-h-12">
+      <div
+        onClick={() => {
+          router.push(`/board/${id}`);
+        }}
+        className="relative flex justify-between gap-2 min-h-12 cursor-pointer"
+      >
         <BoardTitleImage title={title} image={image} />
       </div>
       <div className="flex justify-between gap-2">
