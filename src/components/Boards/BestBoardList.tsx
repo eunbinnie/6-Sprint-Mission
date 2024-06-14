@@ -13,14 +13,14 @@ const BestBoardList = ({ id, list }: BoardListProps) => {
   const customDate = new Date(createdAt).toLocaleDateString();
 
   return (
-    <li className="flex-1 grid gap-4 pb-4 px-6 bg-gray-50 rounded-[8px]">
+    <li className="flex-1 flex flex-col gap-4 pb-4 px-6 bg-gray-50 rounded-[8px]">
       <Image src={bestBadge} alt="Best" width={102} height={30} />
       <div
         onClick={() => {
           console.log("zmffflr");
           router.push(`/board/${id}`);
         }}
-        className="relative flex justify-between gap-2 cursor-pointer"
+        className="relative flex flex-1 justify-between gap-2 cursor-pointer"
       >
         <BoardTitleImage title={title} image={image} />
       </div>

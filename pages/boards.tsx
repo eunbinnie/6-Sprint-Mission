@@ -45,7 +45,7 @@ const Boards = ({ initialBestArticles, initialArticles }: any) => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [bestOption, setBestOption] = useState<GetArticlesQuery>({
     orderBy: "like",
-    pageSize: setBestPageSize(category),
+    pageSize: 0,
   });
   const [option, setOption] = useState<GetArticlesQuery>({
     orderBy: "recent",
