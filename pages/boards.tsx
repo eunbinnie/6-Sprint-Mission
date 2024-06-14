@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GetArticlesQuery, getArticlesApi } from "@/lib/api";
+import instance, { GetArticlesQuery } from "@/lib/axios";
 import BoardList from "@/src/components/Boards/BoardList";
 import Title from "@/src/components/Title";
 import LinkButton from "@/src/components/LinkButton";
@@ -60,11 +60,14 @@ const Boards = () => {
   useEffect(() => {
     const getBestArticles = async () => {
       try {
-        const bestArticles: ArticleArrayType = await getArticlesApi(bestOption);
+        const res = await instance.get("/articles", {
+          params: bestOption,
+        });
+        const bestArticles = res.data;
         const { list }: { list: ArticleArrayType["list"] } = bestArticles;
         setBestArticles(list);
       } catch (error) {
-        console.error("Failed tooo fetch best articles: ", error);
+        console.error("Failed to fetch best articles: ", error);
       }
     };
 
@@ -74,7 +77,10 @@ const Boards = () => {
   useEffect(() => {
     const getArticles = async () => {
       try {
-        const articles: ArticleArrayType = await getArticlesApi(option);
+        const res = await instance.get("/articles", {
+          params: option,
+        });
+        const articles = res.data;
         const { list }: { list: ArticleArrayType["list"] } = articles;
         setArticles(list);
       } catch (error) {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { OrderByListType } from "../types/common.interface";
-import { GetArticlesQuery } from "@/lib/api";
+import { GetArticlesQuery } from "@/lib/axios";
 import toggleIcon from "@/src/assets/icons/toggle_icon.svg";
 
 type PropsType = {
