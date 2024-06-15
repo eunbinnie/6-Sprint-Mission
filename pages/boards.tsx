@@ -170,10 +170,10 @@ export const getServerSideProps = async () => {
   };
 
   try {
-    const [bestArticlesRes, articlesRes] = await Promise.all([
-      axios.get("/articles", { params: bestOption }),
-      axios.get("/articles", { params: option }),
-    ]);
+    const bestArticlesRes = await axios.get("/articles", {
+      params: bestOption,
+    });
+    const articlesRes = await axios.get("/articles", { params: option });
 
     const initialBestArticles = bestArticlesRes.data.list;
     const initialArticles = articlesRes.data.list;
