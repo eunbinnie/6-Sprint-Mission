@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios, { GetArticlesQuery } from "@/lib/axios";
-import BoardList from "@/src/components/Boards/BoardList";
+import BoardList from "@/src/components/page/Boards/BoardList";
 import Title from "@/src/components/Title";
 import LinkButton from "@/src/components/LinkButton";
 import SearchForm from "@/src/components/SearchForm";
-import BestBoardList from "@/src/components/Boards/BestBoardList";
+import BestBoardList from "@/src/components/page/Boards/BestBoardList";
 import Dropdown from "@/src/components/Dropdown";
-import { orderByList } from "@/src/constants";
+import { orderByList } from "@/src/data/constants";
 import useWindowSize from "@/src/hooks/useWindowSize";
 
 export interface ArticleType {
@@ -28,13 +28,19 @@ export interface ArticleArrayType {
   totalCount: number;
 }
 
+interface IBoardsProps {
+  initialBestArticles: ArticleArrayType["list"];
+  initialArticles: ArticleArrayType["list"];
+}
+
 const setBestPageSize = (category: string) => {
   if (category === "S") return 1;
   else if (category === "M") return 2;
-  else return 3;
+  else if (category === "L") return 3;
+  else return 0;
 };
 
-const Boards = ({ initialBestArticles, initialArticles }: any) => {
+const Boards = ({ initialBestArticles, initialArticles }: IBoardsProps) => {
   const category = useWindowSize();
 
   // state
@@ -71,7 +77,7 @@ const Boards = ({ initialBestArticles, initialArticles }: any) => {
       ...prev,
       pageSize: setBestPageSize(category),
     }));
-  }, [category, bestOption.pageSize]);
+  }, [category]);
 
   useEffect(() => {
     const getBestArticles = async () => {
@@ -87,7 +93,9 @@ const Boards = ({ initialBestArticles, initialArticles }: any) => {
       }
     };
 
-    getBestArticles();
+    if (bestOption.pageSize && bestOption.pageSize > 0) {
+      getBestArticles();
+    }
   }, [bestOption]);
 
   useEffect(() => {

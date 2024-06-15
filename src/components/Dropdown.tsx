@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { OrderByListType } from "../types/common.interface";
 import { GetArticlesQuery } from "@/lib/axios";
-import toggleIcon from "@/src/assets/icons/toggle_icon.svg";
+import toggleIcon from "@/public/icons/toggle_icon.svg";
 
 type PropsType = {
   list: OrderByListType[];
@@ -10,7 +10,7 @@ type PropsType = {
 };
 
 const Dropdown = (props: PropsType) => {
-  const DropdownRef = useRef<HTMLDivElement>(null);
+  const DropdownRef = useRef<HTMLDivElement | null>(null);
   const { list, setOption } = props;
   const [view, setView] = useState(false);
   const [selected, setSelected] = useState(list[0].text);

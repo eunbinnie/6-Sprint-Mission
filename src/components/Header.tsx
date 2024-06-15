@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import LinkButton from "./LinkButton";
 import { ChildrenProps } from "@/src/types/common.interface";
-import pandaLogo from "@/src/assets/icons/panda_face.svg";
+import pandaLogo from "@/public/icons/panda_face.svg";
 
 interface LinkType extends ChildrenProps {
   href: string;

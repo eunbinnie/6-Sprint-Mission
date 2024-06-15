@@ -1,10 +1,10 @@
 import React from "react";
-import Profile from "../Profile";
 import Image from "next/image";
-import likeImg from "@/src/assets/icons/favorite_icon.svg";
+import { useRouter } from "next/router";
+import Profile from "../../Profile";
 import { ArticleType } from "@/pages/boards";
 import BoardTitleImage from "./BoardTitleImage";
-import { useRouter } from "next/router";
+import likeImg from "@/public/icons/favorite_icon.svg";
 
 export interface BoardListProps {
   id?: number;

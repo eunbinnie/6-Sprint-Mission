@@ -1,4 +1,4 @@
-import { OrderByListType } from "./types/common.interface";
+import { OrderByListType } from "../types/common.interface";
 
 export const orderByList: OrderByListType[] = [
   { text: "최신순", key: "recent" },

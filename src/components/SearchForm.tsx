@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import searchIcon from "@/src/assets/icons/search_icon.svg";
 import { InputPropertyType } from "@/src/types/common.interface";
 import Input from "./Input";
+import searchIcon from "@/public/icons/search_icon.svg";
 
 interface SearchFormProps extends InputPropertyType {
   onSubmit: React.FormEventHandler<HTMLFormElement>;

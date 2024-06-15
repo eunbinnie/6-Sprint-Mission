@@ -1,10 +1,10 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
-import bestBadge from "@/src/assets/icons/best_badge.svg";
 import BoardTitleImage from "./BoardTitleImage";
 import { BoardListProps } from "./BoardList";
-import likeImage from "@/src/assets/icons/favorite_icon.svg";
-import { useRouter } from "next/router";
+import bestBadge from "@/public/icons/best_badge.svg";
+import likeImage from "@/public/icons/favorite_icon.svg";
 
 const BestBoardList = ({ id, list }: BoardListProps) => {
   const router = useRouter();
@@ -17,7 +17,6 @@ const BestBoardList = ({ id, list }: BoardListProps) => {
       <Image src={bestBadge} alt="Best" width={102} height={30} />
       <div
         onClick={() => {
-          console.log("zmffflr");
           router.push(`/board/${id}`);
         }}
         className="relative flex flex-1 justify-between gap-2 cursor-pointer"

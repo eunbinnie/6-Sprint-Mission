@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 /**
- * L: 745px ~,
- * M: 480px ~ 744px,
  * S: ~ 479px,
+ * M: 480px ~ 744px,
+ * L: 745px ~,
  */
 
 const getWindowSizeCategory = (width: number) => {
