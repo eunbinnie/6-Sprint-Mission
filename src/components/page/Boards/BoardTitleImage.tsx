@@ -19,7 +19,7 @@ const BoardTitleImage = ({ title, image }: BoardTitleImageProps) => {
             alt="이미지 미리보기"
             fill
             sizes="72px"
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "contain" }}
           />
         </div>
       )}

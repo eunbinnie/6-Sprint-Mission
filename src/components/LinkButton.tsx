@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import type { UrlObject } from "url";
-import type { ChildrenProps } from "@/types/common.interface";
+import type { ChildrenProps } from "@/src/types/common.interface";
 
 interface LinkButtonProps extends ChildrenProps {
   href: string | UrlObject;
