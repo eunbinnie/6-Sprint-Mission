@@ -1,7 +1,10 @@
-import { InputPropertyType } from "@/src/types/common.interface";
 import React from "react";
 
-const Input = ({ value, onChange, placeholder }: InputPropertyType) => {
+const Input = ({
+  value,
+  onChange,
+  placeholder,
+}: React.InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <input
       value={value}

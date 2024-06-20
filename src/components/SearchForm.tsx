@@ -1,10 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import { InputPropertyType } from "@/src/types/common.interface";
 import Input from "./Input";
 import searchIcon from "@/public/icons/search_icon.svg";
 
-interface SearchFormProps extends InputPropertyType {
+interface SearchFormProps {
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
