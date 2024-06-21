@@ -25,7 +25,6 @@ const useWindowSize = () => {
       const width = window.innerWidth;
       const category = getWindowSizeCategory(width);
       setWindowWidth(category);
-      console.log(windowWidth);
     }, 100);
 
     handleResize();
