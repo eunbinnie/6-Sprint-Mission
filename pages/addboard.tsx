@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import axios from "@/lib/axios";
 import Input from "@/src/components/input/Input";
 import TextArea from "@/src/components/input/TextArea";
-import Title from "@/src/components/Title";
 import FileInput from "@/src/components/input/FileInput";
 import deleteIcon from "@/public/icons/ic_X.svg";
+import SubmitButton from "@/src/components/button/SubmitButton";
 
 interface IarticleType {
   title: string;
@@ -45,12 +46,31 @@ const AddBoard = () => {
     });
   };
 
-  const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  /**
+   * @TODO 로그인 기능 구현 후 이어서 작업
+   */
+  const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
     e.preventDefault();
+    const { title, content, image } = articleValues;
+    if (image) {
+      try {
+        const formData = new FormData();
+        formData.append("image", image);
+
+        const res = await axios.post("/images/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } catch (error) {
+        console.error("post image error!");
+      }
+    }
   };
 
   useEffect(() => {
-    console.log(articleValues);
     const { title, content } = articleValues;
     title !== "" && content !== "" ? setDisabled(false) : setDisabled(true);
   }, [articleValues]);
@@ -59,16 +79,7 @@ const AddBoard = () => {
     <div className="px-6 py-6 max-w-[1200px] w-full mx-auto">
       <form onSubmit={handleFormSubmit}>
         <div className="flex justify-between items-center">
-          <Title>게시글 쓰기</Title>
-          <button
-            type="submit"
-            disabled={disabled}
-            className={`${
-              disabled ? "bg-gray-400" : "bg-blue"
-            } font-semibold leading-[1.2] text-white px-[23px] py-[11.5px] rounded-lg`}
-          >
-            등록
-          </button>
+          <SubmitButton disabled={disabled}>등록</SubmitButton>
         </div>
         <div className="grid gap-6 mt-6">
           <div className="grid gap-3">
@@ -94,6 +105,7 @@ const AddBoard = () => {
               value={articleValues.content}
               onChange={onChangeText}
               placeholder="내용을 입력해주세요"
+              heightStyle={282}
             />
           </div>
           <div className="grid gap-3">

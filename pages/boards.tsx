@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import BoardList from "@/src/components/page/Boards/BoardList";
 import Title from "@/src/components/Title";
-import LinkButton from "@/src/components/LinkButton";
+import LinkButton from "@/src/components/button/LinkButton";
 import SearchForm from "@/src/components/SearchForm";
 import BestBoardList from "@/src/components/page/Boards/BestBoardList";
 import Dropdown from "@/src/components/Dropdown";
